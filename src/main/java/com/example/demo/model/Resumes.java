@@ -7,6 +7,7 @@ import java.time.LocalDate;
 @Builder
 @Data
 public class Resumes {
+    private int id;
     private int applicantId;
     private String name;
     private int categoryId;

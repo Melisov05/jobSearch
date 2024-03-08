@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 public class Messages {
+    private int id;
     private int respondedApplicants;
     private String messages;
     private LocalDateTime timestamp;
