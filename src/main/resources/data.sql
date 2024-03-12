@@ -32,4 +32,15 @@ create table resumes (
     foreign key (applicant_id) references users(id)
 );
 
+insert into resumes (id, applicant_id, name, category_id, salary, is_active, created_date, updated_date)
+values (1, 1, 'резюме_соискателя_1', 1, 50000.0, true, now(), now());
+
+insert into resumes (id, applicant_id, name, category_id, salary, is_active, created_date, updated_date)
+values (2, 1, 'резюме_соискателя_2', 2, 60000.0, true, now(), now());
+
+
+
+
+
+
 
