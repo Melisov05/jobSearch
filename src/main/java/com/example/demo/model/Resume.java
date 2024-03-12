@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
-public class Resumes {
+public class Resume {
     private int id;
     private int applicantId;
     private String name;

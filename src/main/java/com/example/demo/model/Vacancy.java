@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class Vacancies {
+public class Vacancy {
     private int id;
     private String name;
     private String description;

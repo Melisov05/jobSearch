@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ContactTypes {
+public class ContactType {
     private int id;
     private String type;
 }
