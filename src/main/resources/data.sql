@@ -66,7 +66,8 @@ create table applications (
     foreign key (vacancy_id) references vacancies(id)
 );
 
-
+insert into applications (id, resume_id, vacancy_id, applied_date)
+values (1, 1, 1, now());
 
 
 
