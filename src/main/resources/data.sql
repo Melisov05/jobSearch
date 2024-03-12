@@ -38,6 +38,21 @@ values (1, 1, 'резюме_соискателя_1', 1, 50000.0, true, now(), no
 insert into resumes (id, applicant_id, name, category_id, salary, is_active, created_date, updated_date)
 values (2, 1, 'резюме_соискателя_2', 2, 60000.0, true, now(), now());
 
+create table vacancies (
+    id int primary key,
+    employer_id int,
+    name varchar(255),
+    category_id int,
+    salary double,
+    is_active boolean,
+    created_date timestamp,
+    updated_date timestamp,
+    foreign key (employer_id) references users(id)
+);
+
+
+
+
 
 
 
