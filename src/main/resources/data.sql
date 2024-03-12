@@ -61,7 +61,6 @@ create table applications (
     id int primary key,
     resume_id int,
     vacancy_id int,
-    applied_date timestamp,
     foreign key (resume_id) references resumes(id),
     foreign key (vacancy_id) references vacancies(id)
 );
