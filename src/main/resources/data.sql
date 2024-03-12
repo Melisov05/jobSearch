@@ -51,6 +51,13 @@ create table vacancies (
 );
 
 
+insert into vacancies (id, employer_id, name, category_id, salary, is_active, created_date, updated_date)
+values (1, 2, 'Младший волшебник', 1, 55000.0, true, now(), now());
+
+insert into vacancies (id, employer_id, name, category_id, salary, is_active, created_date, updated_date)
+values (2, 2, 'Старший волшебник', 2, 70000.0, true, now(), now());
+
+
 
 
 
