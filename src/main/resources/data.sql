@@ -20,4 +20,16 @@ insert into users (id, name, surname, age, email, password, phone_number, avatar
 values (2, 'дамблдор', 'профессор', 30, 'rabotodatel@example.com', 'password2', '+987654321', 'avatar2.jpg', 'работодатель');
 
 
+create table resumes (
+    id int primary key,
+    applicant_id int,
+    name varchar(255),
+    category_id int,
+    salary double,
+    is_active boolean,
+    created_date timestamp,
+    updated_date timestamp,
+    foreign key (applicant_id) references users(id)
+);
+
 
