@@ -1,5 +1,4 @@
-
-create table users (
+create table if not exists users (
     id int primary key auto_increment,
     name varchar(255),
     surname varchar(255),
@@ -12,15 +11,15 @@ create table users (
 );
 
 
-insert into users (id, name, surname, age, email, password, phone_number, avatar, account_type)
+insert into users (name, surname, age, email, password, phone_number, avatar, account_type)
 values ('Гарри', 'Поттер', 25, 'soiskatel@example.com', 'password1', '+123456789', 'avatar1.jpg', 'соискатель');
 
 
-insert into users (id, name, surname, age, email, password, phone_number, avatar, account_type)
+insert into users (name, surname, age, email, password, phone_number, avatar, account_type)
 values ('Дамблдор', 'Профессор', 30, 'rabotodatel@example.com', 'password2', '+987654321', 'avatar2.jpg', 'работодатель');
 
 
-create table resumes (
+create table if not exists resumes (
     id int primary key auto_increment,
     applicant_id int,
     name varchar(255),
@@ -32,13 +31,13 @@ create table resumes (
     foreign key (applicant_id) references users(id)
 );
 
-insert into resumes (id, applicant_id, name, category_id, salary, is_active, created_date, updated_date)
+insert into resumes (applicant_id, name, category_id, salary, is_active, created_date, updated_date)
 values (1, 'резюме_соискателя_1', 1, 50000.0, true, now(), now());
 
-insert into resumes (id, applicant_id, name, category_id, salary, is_active, created_date, updated_date)
+insert into resumes (applicant_id, name, category_id, salary, is_active, created_date, updated_date)
 values (1, 'резюме_соискателя_2', 2, 60000.0, true, now(), now());
 
-create table vacancies (
+create table if not exists vacancies (
     id int primary key auto_increment,
     name varchar(255),
     description varchar(255),
@@ -58,7 +57,7 @@ insert into vacancies (name, description, category_id, salary, exp_from, exp_to,
 values ('Младший волшебник', 'Описание вакансии 1', 1, 55000.0, 1, 5, true, 2, now(), now()),
        ('Старший волшебник', 'Описание вакансии 2', 2, 70000.0, 3, 8, true, 2, now(), now());
 
-create table applications (
+create table if not exists applications(
     id int primary key,
     resume_id int,
     vacancy_id int,
@@ -66,11 +65,11 @@ create table applications (
     foreign key (vacancy_id) references vacancies(id)
 );
 
-insert into applications (id, resume_id, vacancy_id, applied_date)
+insert into applications (id, resume_id, vacancy_id)
 values (1, 1, 1, now());
 
 
-create table categories (
+create table if not exists categories(
     id int primary key auto_increment,
     name varchar(255),
     parent_id int
@@ -82,7 +81,7 @@ values ('category1', 0),
        ('category2', 1);
 
 
-create table contact_types (
+create table if not exists contact_types (
     id int primary key auto_increment,
     type varchar(255)
 );
@@ -93,7 +92,7 @@ values ('Email'),
        ('Phone');
 
 
-create table contact_info (
+create table if not exists contact_info (
     id int primary key auto_increment,
     type_id int,
     resume_id int,
@@ -108,7 +107,7 @@ values (1, 1, 'applicant@example.com'),
        (2, 1, '+123456789');
 
 
-create table education_info (
+create table if not exists education_info (
     id int primary key auto_increment,
     resume_id int,
     institution varchar(255),
@@ -125,7 +124,7 @@ values (1, 'University A', 'Computer Science', '2020-01-01', '2024-01-01', 'Bach
        (2, 'University B', 'Business Administration', '2019-01-01', '2023-01-01', 'Bachelor');
 
 
-create table messages (
+create table if not exists messages (
     id int primary key auto_increment,
     responded_applicant_id int,
     message_text varchar(255),
@@ -140,7 +139,7 @@ values (1, 'Sample message 1', now()),
 
 
 
-create table responded_applicants (
+create table if not exists responded_applicants (
     id int primary key auto_increment,
     resume_id int,
     vacancy_id int,
