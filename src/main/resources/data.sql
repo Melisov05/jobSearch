@@ -57,6 +57,16 @@ values (1, 2, 'Младший волшебник', 1, 55000.0, true, now(), now(
 insert into vacancies (id, employer_id, name, category_id, salary, is_active, created_date, updated_date)
 values (2, 2, 'Старший волшебник', 2, 70000.0, true, now(), now());
 
+create table applications (
+    id int primary key,
+    resume_id int,
+    vacancy_id int,
+    applied_date timestamp,
+    foreign key (resume_id) references resumes(id),
+    foreign key (vacancy_id) references vacancies(id)
+);
+
+
 
 
 
