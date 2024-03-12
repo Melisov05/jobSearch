@@ -12,3 +12,12 @@ create table users (
 );
 
 
+insert into users (id, name, surname, age, email, password, phone_number, avatar, account_type)
+values (1, 'гарри', 'поттер', 25, 'soiskatel@example.com', 'password1', '+123456789', 'avatar1.jpg', 'соискатель');
+
+
+insert into users (id, name, surname, age, email, password, phone_number, avatar, account_type)
+values (2, 'дамблдор', 'профессор', 30, 'rabotodatel@example.com', 'password2', '+987654321', 'avatar2.jpg', 'работодатель');
+
+
+
