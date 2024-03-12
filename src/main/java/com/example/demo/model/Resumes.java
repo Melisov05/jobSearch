@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import lombok.Builder;
 import lombok.Data;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 @Data
@@ -13,6 +13,6 @@ public class Resumes {
     private int categoryId;
     private double salary;
     private boolean isActive;
-    private LocalDate createdDate;
-    private LocalDate updatedDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
 }

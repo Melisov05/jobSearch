@@ -3,7 +3,8 @@ package com.example.demo.model;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -17,6 +18,6 @@ public class Vacancies {
     private int expTo;
     private boolean isActive;
     private int authorId;
-    private LocalDate createdDate;
-    private LocalDate updatedTime;
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedTime;
 }
