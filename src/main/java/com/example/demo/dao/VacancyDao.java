@@ -39,4 +39,5 @@ public class VacancyDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Vacancy.class), categoryName);
     }
 
+
 }

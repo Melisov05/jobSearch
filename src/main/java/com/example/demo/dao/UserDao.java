@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class UserDao {
@@ -32,5 +34,10 @@ public class UserDao {
         return count > 0;
     }
 
-
+    public List<User> findApplicantsForVacancy(long user){
+        String sql = """
+                select * from RESPONDED_APPLICANTS where RESUME_ID = (select id from RESUMES where APPLICANT_ID = ?)
+                """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), user);
+    }
 }
