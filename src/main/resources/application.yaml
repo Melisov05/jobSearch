@@ -1,12 +1,15 @@
 spring:
   datasource:
-    url: jdbc:h2:./dv/demo;AUTO_SERVER=true;
+    url: jdbc:h2:./db/demo;AUTO_SERVER=true;
     username: root
     password: qwerty
     driver-class-name: org.h2.Driver
-#  sql:
+
+  liquibase:
+    change-log: classpath:/db/changelog/master.yaml
 #    init:
 #      mode: always
 
 server:
   port: 8889
+

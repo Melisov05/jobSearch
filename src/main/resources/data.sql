@@ -37,6 +37,19 @@ values (1, 'резюме_соискателя_1', 1, 50000.0, true, now(), now()
 insert into resumes (applicant_id, name, category_id, salary, is_active, created_date, updated_date)
 values (1, 'резюме_соискателя_2', 2, 60000.0, true, now(), now());
 
+
+create table if not exists categories(
+        id int primary key auto_increment,
+        name varchar(255),
+        parent_id int
+);
+
+
+insert into categories (name, parent_id)
+values ('category1', 0),
+       ('category2', 1);
+
+
 create table if not exists vacancies (
     id int primary key auto_increment,
     name varchar(255),
@@ -58,15 +71,15 @@ values ('Младший волшебник', 'Описание вакансии 
        ('Старший волшебник', 'Описание вакансии 2', 2, 70000.0, 3, 8, true, 2, now(), now());
 
 create table if not exists applications(
-    id int primary key,
+    id int primary key auto_increment,
     resume_id int,
     vacancy_id int,
     foreign key (resume_id) references resumes(id),
     foreign key (vacancy_id) references vacancies(id)
 );
 
-insert into applications (id, resume_id, vacancy_id)
-values (1, 1, 1, now());
+insert into applications (resume_id, vacancy_id)
+values (1, 1);
 
 
 create table if not exists categories(
@@ -100,6 +113,7 @@ create table if not exists contact_info (
     foreign key (type_id) references contact_types(id),
     foreign key (resume_id) references resumes(id)
 );
+
 
 
 insert into contact_info (type_id, resume_id, value)
