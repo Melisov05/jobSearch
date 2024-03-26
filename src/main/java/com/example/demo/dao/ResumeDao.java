@@ -27,7 +27,6 @@ public class ResumeDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class), userId);
     }
 
-    // do we need to get resume by its id?
     public Resume getResumeById(long resumeId){
         String sql = """
                 select * from RESUMES where ID = ?;
@@ -35,6 +34,28 @@ public class ResumeDao {
 
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Resume.class), resumeId);
     }
+
+    public Resume getResumeByUserId(long userId){
+        String sql = """
+                select * from RESUMES where APPLICANT_ID = ?
+                """;
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Resume.class), userId);
+    }
+
+    public List<Resume> getAllActiveResumes(){
+        String sql = """
+                select * from RESUMES where IS_ACTIVE = 'true'
+                """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class));
+    }
+
+    public List<Resume> getAllResumes(){
+        String sql = """
+                select * from RESUMES
+                """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class));
+    }
+
 
     public void addResume(Resume resume){
         String sql = """
