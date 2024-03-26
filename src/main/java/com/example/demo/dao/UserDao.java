@@ -12,18 +12,24 @@ public class UserDao {
     private final JdbcTemplate jdbcTemplate;
 
     public User findUserByName(String name) {
-        String sql = "SELECT * FROM users WHERE name = ?";
+        String sql = "select * from users where name = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
     }
 
     public User findUserByPhone(String phone) {
-        String sql = "SELECT * FROM users WHERE PHONE_NUMBER = ?";
+        String sql = "select * from users where PHONE_NUMBER = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
     }
 
     public User findUserByEmail(String email){
-        String sql = "SELECT * FROM users WHERE PHONE_NUMBER = ?";
+        String sql = "select * from users where PHONE_NUMBER = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
+    }
+
+    public boolean checkUserExistsByEmail(String email) {
+        String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+        int count = jdbcTemplate.queryForObject(sql, Integer.class, email);
+        return count > 0;
     }
 
 
