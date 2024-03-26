@@ -36,8 +36,19 @@ public class UserDao {
 
     public List<User> findApplicantsForVacancy(long user){
         String sql = """
-                select * from RESPONDED_APPLICANTS where RESUME_ID = (select id from RESUMES where APPLICANT_ID = ?)
+                select * from RESPONDED_APPLICANTS where
+                 RESUME_ID = (select id from RESUMES where APPLICANT_ID = ?)
                 """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), user);
+    }
+
+    public void updateProfile(User user) {
+        String sql = "update users set name = ?," +
+                " surname = ?, email = ?, password = ?, age = ?, phone_number = ?," +
+                " avatar = ?, account_type = ? WHERE id = ?";
+        jdbcTemplate.update(sql, user.getName(), user.getSurname(),
+                user.getEmail(), user.getPassword(),
+                user.getAge(), user.getPhoneNumber(), user.getAvatar(),
+                user.getAccountType(), user.getId());
     }
 }

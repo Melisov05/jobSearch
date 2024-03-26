@@ -13,11 +13,11 @@ import java.util.List;
 public class ResumeDao {
     private final JdbcTemplate jdbcTemplate;
 
-    public List<Resume> findResumesByCategory(String category){
+    public List<Resume> findResumesByCategory(String categoryName){
         String sql = """
                     select * from resumes where category_id = (select id from categories where name = ?)
                 """;
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class), category);
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class), categoryName);
     }
 
     public List<Resume> findResumesByUserId(long userId){
