@@ -7,8 +7,7 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
-#    init:
-#      mode: always
+
 
 server:
   port: 8889

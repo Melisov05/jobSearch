@@ -20,6 +20,9 @@ databaseChangeLog:
               - column:
                   name: parent_id
                   type: long
+                  constraints:
+                    foreignKeyName: fk_category_id_parent_id
+                    references: categories(id)
 
   - changeSet:
       id: creating table for users
@@ -37,28 +40,28 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: surname
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: email
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: password
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: age
                   type: int
               - column:
                   name: phone_number
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: avatar
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: account_type
-                  type: varchar(55)
+                  type: varchar(255)
   - changeSet:
       id: creating table for resumes
       author: Aitemir
@@ -75,7 +78,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: applicant_id
                   type: long
@@ -120,10 +123,10 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: description
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: category_id
                   type: long
@@ -206,7 +209,7 @@ databaseChangeLog:
                     references: responded_applicants(id)
               - column:
                   name: content
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                    name: timestamp
                    type: timestamp
@@ -233,10 +236,10 @@ databaseChangeLog:
                     references: resumes(id)
               - column:
                   name: institution
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: program
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: start_date
                   type: timestamp
@@ -245,7 +248,7 @@ databaseChangeLog:
                   type: timestamp
               - column:
                   name: degree
-                  type: varchar(55)
+                  type: varchar(255)
   - changeSet:
       id: work_experience_info table
       author: Aitemir
@@ -265,13 +268,13 @@ databaseChangeLog:
                   type: int
               - column:
                   name: company_name
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                   name: position
-                  type: varchar(55)
+                  type: varchar(255)
               - column:
                    name: responsibilities
-                   type: varchar(55)
+                   type: varchar(255)
               - column:
                   name: resume_id
                   type: long
@@ -322,5 +325,5 @@ databaseChangeLog:
                     foreignKeyName: fk_contact_info_resumes
                     references: resumes(id)
               - column:
-                  name: value
-                  type: varchar(55)
+                  name: content
+                  type: varchar(255)

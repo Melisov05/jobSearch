@@ -9,12 +9,22 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class UserDao {
-//    private final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-//    public User findUserByName(String name) {
-//        String sql = "SELECT * FROM users WHERE name = ?";
-//        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
-//    }
+    public User findUserByName(String name) {
+        String sql = "SELECT * FROM users WHERE name = ?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
+    }
+
+    public User findUserByPhone(String phone) {
+        String sql = "SELECT * FROM users WHERE PHONE_NUMBER = ?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
+    }
+
+    public User findUserByEmail(String email){
+        String sql = "SELECT * FROM users WHERE PHONE_NUMBER = ?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
+    }
 
 
 }
