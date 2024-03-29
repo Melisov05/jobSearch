@@ -2,16 +2,22 @@ package com.example.demo.dao;
 
 import com.example.demo.model.Vacancy;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor
 public class VacancyDao {
     private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public List<Vacancy> findVacanciesByRespondedUser(long userId){
         String sql = """
@@ -39,4 +45,47 @@ public class VacancyDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Vacancy.class), categoryName);
     }
 
+    public void create(Vacancy vacancy){
+        String sql = """
+                insert into VACANCIES(name, description, category_id, 
+                salary, exp_from, exp_to, is_active, author_id, created_date, updated_time)
+                 values (:name, :description, :category_id,
+                  :salary, :exp_from, :exp_to, :is_active, :author_id, :created_date, :updated_time)
+                """;
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource()
+                .addValue("name", vacancy.getName())
+                .addValue("description", vacancy.getDescription())
+                .addValue("category_id", vacancy.getCategoryId())
+                .addValue("salary", vacancy.getSalary())
+                .addValue("exp_from", vacancy.getExpFrom())
+                .addValue("exp_to", vacancy.getExpTo())
+                .addValue("is_active", vacancy.getIsActive())
+                .addValue("author_id", vacancy.getAuthorId())
+                .addValue("created_date", LocalDateTime.now())
+                .addValue("updated_time",  LocalDateTime.now()));
+    }
+
+    public void deleteVacancy(long vacancyId){
+        String deleteFromRespondedApplicants = """
+                delete from RESPONDED_APPLICANTS where VACANCY_ID = ?
+                """;
+        jdbcTemplate.update(deleteFromRespondedApplicants, vacancyId);
+
+        String sql = """
+                delete from VACANCIES where ID = ?
+                """;
+        jdbcTemplate.update(sql, vacancyId);
+    }
+
+    public Optional<Vacancy> getById(Long id) {
+        String sql = """
+                      select * from VACANCIES
+                      where id = ?;          
+                """;
+        return Optional.ofNullable(
+                DataAccessUtils.singleResult(
+                        jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Vacancy.class), id)
+                )
+        );
+    }
 }

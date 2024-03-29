@@ -155,7 +155,7 @@ databaseChangeLog:
                   name: created_date
                   type: timestamp
               - column:
-                  name: update_time
+                  name: updated_time
                   type: timestamp
 
   - changeSet:

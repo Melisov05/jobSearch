@@ -24,8 +24,8 @@ public class UserDao {
     }
 
     public User findUserByEmail(String email){
-        String sql = "select * from users where PHONE_NUMBER = ?";
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
+        String sql = "select * from users where EMAIL = ?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class),email);
     }
 
     public boolean checkUserExistsByEmail(String email) {
@@ -44,10 +44,10 @@ public class UserDao {
 
     public void updateProfile(User user) {
         String sql = "update users set name = ?," +
-                " surname = ?, email = ?, password = ?, age = ?, phone_number = ?," +
+                " surname = ?, password = ?, age = ?, phone_number = ?," +
                 " avatar = ?, account_type = ? WHERE id = ?";
         jdbcTemplate.update(sql, user.getName(), user.getSurname(),
-                user.getEmail(), user.getPassword(),
+                user.getPassword(),
                 user.getAge(), user.getPhoneNumber(), user.getAvatar(),
                 user.getAccountType(), user.getId());
     }

@@ -1,10 +1,11 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vacancy {
+public class VacancyDto {
     private Long id;
     private String name;
     private String description;
@@ -22,7 +23,5 @@ public class Vacancy {
     private Integer expFrom;
     private Integer expTo;
     private Boolean isActive;
-    private Long authorId;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedTime;
+    private String authorEmail;
 }

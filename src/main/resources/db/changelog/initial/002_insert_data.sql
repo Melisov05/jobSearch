@@ -24,7 +24,7 @@ VALUES
     ('Jane Smith Resume', (SELECT id FROM users WHERE email = 'jane.smith@example.com'),
      (SELECT id FROM categories WHERE name = 'Civil Engineering'), 80000.00, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id, created_date, update_time)
+INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id, created_date, updated_time)
 VALUES
     ('Software Engineer', 'Looking for a skilled software engineer',
      (SELECT id FROM categories WHERE name = 'Software Development'), 90000.00, 3, 5, true,
@@ -107,7 +107,7 @@ VALUES
     ('Bob Williams Resume', (SELECT id FROM users WHERE email = 'bob.williams@example.com'),
      (SELECT id FROM categories WHERE name = 'Backend Development'), 85000.00, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id, created_date, update_time)
+INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id, created_date, updated_time)
 VALUES
     ('Database Administrator', 'Seeking a skilled DBA for managing databases',
      (SELECT id FROM categories WHERE name = 'Database Management'), 95000.00, 5, 8, true,

@@ -1,8 +1,15 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
+import com.example.demo.dao.UserDao;
 import com.example.demo.model.User;
+import com.example.demo.service.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
-public class UserServiceImpl implements UserService{
+@Service
+@AllArgsConstructor
+public class UserServiceImpl implements UserService {
+    private final UserDao userDao;
 
     @Override
     public User findUserByName(String name) {
@@ -16,7 +23,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User findUserByEmail(String email) {
-        return null;
+        return userDao.findUserByEmail(email);
     }
 
     @Override

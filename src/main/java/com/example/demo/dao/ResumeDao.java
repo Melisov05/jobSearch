@@ -2,11 +2,13 @@ package com.example.demo.dao;
 
 import com.example.demo.model.Resume;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Component
@@ -27,19 +29,27 @@ public class ResumeDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class), userId);
     }
 
-    public Resume getResumeById(long resumeId){
+    public Optional<Resume> getResumeById(long resumeId){
         String sql = """
                 select * from RESUMES where ID = ?;
                 """;
 
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Resume.class), resumeId);
+        return Optional.ofNullable(
+                DataAccessUtils.singleResult(
+                        jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class), resumeId)
+                )
+        );
     }
 
-    public Resume getResumeByUserId(long userId){
+    public Optional<Resume> getResumeByUserId(long userId){
         String sql = """
                 select * from RESUMES where APPLICANT_ID = ?
                 """;
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Resume.class), userId);
+        return Optional.ofNullable(
+                DataAccessUtils.singleResult(
+                        jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class), userId)
+                )
+        );
     }
 
     public List<Resume> getAllActiveResumes(){
@@ -74,6 +84,27 @@ public class ResumeDao {
     }
 
     public void deleteResume(long resumeId){
+
+        String deleteFromRespondedApplicants = """
+                delete from RESPONDED_APPLICANTS where RESUME_ID = ?
+                """;
+        jdbcTemplate.update(deleteFromRespondedApplicants, resumeId);
+
+        String deleteFromWorkExperience = """
+                delete from WORK_EXPERIENCE_INFO where RESUME_ID = ?
+                """;
+        jdbcTemplate.update(deleteFromWorkExperience, resumeId);
+
+        String deleteFromEducation = """
+                delete from EDUCATION_INFO where RESUME_ID = ?
+                """;
+        jdbcTemplate.update(deleteFromEducation, resumeId);
+
+        String deleteFromContactInfo = """
+                delete from CONTACT_INFO where RESUME_ID = ?
+                """;
+        jdbcTemplate.update(deleteFromContactInfo, resumeId);
+
         String sql = """
                delete from RESUMES where ID = ?
                 """;
