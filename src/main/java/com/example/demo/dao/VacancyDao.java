@@ -88,4 +88,16 @@ public class VacancyDao {
                 )
         );
     }
+
+    public void editVacancy(Vacancy vacancy){
+        String sql = """
+                update VACANCIES set NAME = ?, DESCRIPTION = ?,
+                 CATEGORY_ID = ?, SALARY = ?, EXP_FROM = ?,
+                  EXP_TO = ?, IS_ACTIVE = ?, UPDATED_TIME = ? where ID = ?
+                """;
+        jdbcTemplate.update(sql, vacancy.getName(), vacancy.getDescription(),
+                vacancy.getCategoryId(), vacancy.getSalary(),
+                vacancy.getExpFrom(), vacancy.getExpTo(),
+                vacancy.getIsActive(),LocalDateTime.now(), vacancy.getId());
+    }
 }

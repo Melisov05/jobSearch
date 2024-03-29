@@ -5,5 +5,6 @@ import com.example.demo.dto.VacancyDto;
 public interface VacancyService {
     void createVacancy(VacancyDto vacancyDto) throws Exception;
 
-    boolean deleteMovie(long id);
+    boolean deleteVacancy(long id);
+    void updateVacancy(VacancyDto vacancyDto) throws Exception;
 }

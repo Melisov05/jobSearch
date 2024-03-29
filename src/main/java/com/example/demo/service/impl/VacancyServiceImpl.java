@@ -25,7 +25,33 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public boolean deleteMovie(long id) {
+    public void updateVacancy(VacancyDto vacancyDto) throws Exception {
+        int from = vacancyDto.getExpFrom();
+        int to = vacancyDto.getExpTo();
+
+        if (to< from){
+            throw new Exception("Xnj");
+        }
+
+        if (vacancyDto.getSalary().compareTo(BigDecimal.ZERO) < 0) {
+            throw new Exception("Salary cannot be negative.");
+        }
+        Vacancy vacancy = Vacancy.builder()
+                .name(vacancyDto.getName())
+                .id(vacancyDto.getId())
+                .description(vacancyDto.getDescription())
+                .categoryId(vacancyDto.getCategoryId())
+                .salary(vacancyDto.getSalary())
+                .expFrom(vacancyDto.getExpFrom())
+                .expTo(vacancyDto.getExpTo())
+                .isActive(vacancyDto.getIsActive())
+                .build();
+
+        vacancyDao.editVacancy(vacancy);
+    }
+
+    @Override
+    public boolean deleteVacancy(long id) {
         if(vacancyDao.getById(id).isPresent()){
             vacancyDao.deleteVacancy(id);
             return true;
@@ -61,4 +87,5 @@ public class VacancyServiceImpl implements VacancyService {
                 .authorId(authorId)
                 .build();
     }
+
 }

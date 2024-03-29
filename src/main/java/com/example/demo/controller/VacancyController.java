@@ -20,7 +20,6 @@ public class VacancyController {
     public HttpStatus createVacancy(@RequestBody VacancyDto vacancyDto){
         try {
             vacancyService.createVacancy(vacancyDto);
-
         } catch (Exception e){
             log.error(e.getMessage());
             return HttpStatus.BAD_REQUEST;
@@ -28,9 +27,20 @@ public class VacancyController {
         return HttpStatus.CREATED;
     }
 
+    @PutMapping
+    public HttpStatus updateVacancy(@RequestBody VacancyDto vacancyDto){
+        try{
+            vacancyService.updateVacancy(vacancyDto);
+        } catch (Exception e){
+            log.error(e.getMessage());
+            return HttpStatus.BAD_REQUEST;
+        }
+        return HttpStatus.OK;
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteVacancy(@PathVariable long id){
-        if(vacancyService.deleteMovie(id)){
+        if(vacancyService.deleteVacancy(id)){
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
