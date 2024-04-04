@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -39,12 +41,28 @@ public class VacancyController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteVacancy(@PathVariable long id){
+    public ResponseEntity<Void> deleteVacancy(@PathVariable Long id){
         if(vacancyService.deleteVacancy(id)){
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping
+    public ResponseEntity<List<VacancyDto>> getVacancies(){
+        try {
+            return ResponseEntity.ok(vacancyService.getVacancies());
+        } catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("{name}")
+    public ResponseEntity<List<VacancyDto>> getVacanciesByName(@PathVariable String name){
+        return ResponseEntity.ok(vacancyService.getVacanciesByName(name));
+    }
+
 
 }

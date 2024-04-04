@@ -1,13 +1,14 @@
 package com.example.demo.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RespondedApplicant {
-    private int id;
-    private int resumeId;
-    private int vacancyId;
-    private boolean confirmation;
+    private Long id;
+    private Long resumeId;
+    private Long vacancyId;
+    private Boolean confirmation;
 }

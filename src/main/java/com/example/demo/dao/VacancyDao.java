@@ -45,6 +45,13 @@ public class VacancyDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Vacancy.class), categoryName);
     }
 
+    public List<Vacancy> getAllVacanciesByName(String name){
+        String sql = """
+                select * from VACANCIES where NAME ilike ?
+                """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Vacancy.class), ("%" + name + "%"));
+    }
+
     public void create(Vacancy vacancy){
         String sql = """
                 insert into VACANCIES(name, description, category_id, 

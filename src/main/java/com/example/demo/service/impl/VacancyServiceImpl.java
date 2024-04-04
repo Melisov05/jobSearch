@@ -10,6 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -51,7 +54,19 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public boolean deleteVacancy(long id) {
+    public List<VacancyDto> getVacancies() {
+        List<Vacancy> list = vacancyDao.getAllVacancies();
+        return getListVacancy(list);
+    }
+
+    @Override
+    public List<VacancyDto> getVacanciesByName(String name) {
+        List<Vacancy> list = vacancyDao.getAllVacanciesByName(name);
+        return getListVacancy(list);
+    }
+
+    @Override
+    public boolean deleteVacancy(Long id) {
         if(vacancyDao.getById(id).isPresent()){
             vacancyDao.deleteVacancy(id);
             return true;
@@ -86,6 +101,33 @@ public class VacancyServiceImpl implements VacancyService {
                 .isActive(dto.getIsActive())
                 .authorId(authorId)
                 .build();
+    }
+
+    private VacancyDto toDto(Vacancy model){
+        return VacancyDto.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .description(model.getDescription())
+                .categoryId(model.getCategoryId())
+                .salary(model.getSalary())
+                .expFrom(model.getExpFrom())
+                .expTo(model.getExpTo())
+                .isActive(model.getIsActive())
+                .build();
+
+    }
+
+    private List<VacancyDto> getListVacancy(List<Vacancy> list){
+        List<VacancyDto> vacancies = new ArrayList<>();
+
+        for(Vacancy vacancy : list){
+            Optional<User> user = userService.findUserById(vacancy.getId());
+            String email = user.map(User::getEmail).orElse("Unknown");
+            VacancyDto vacancyDto = toDto(vacancy);
+            vacancyDto.setAuthorEmail(email);
+            vacancies.add(vacancyDto);
+        }
+        return vacancies;
     }
 
 }
