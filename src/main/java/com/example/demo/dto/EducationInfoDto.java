@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EducationInfoDto {
-    private int id;
-    private int resumeId;
+    private Long id;
+    private Long resumeId;
     private String institution;
     private String program;
     private LocalDate startDate;

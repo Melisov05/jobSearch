@@ -8,6 +8,12 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
 
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        security: debug
 
 server:
   port: 8889

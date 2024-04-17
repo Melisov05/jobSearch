@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 public class Resume {
-    private int id;
-    private int applicantId;
+    private Long id;
+    private Long applicantId;
     private String name;
-    private int categoryId;
-    private double salary;
-    private boolean isActive;
+    private Long categoryId;
+    private Double salary;
+    private Boolean isActive;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 }

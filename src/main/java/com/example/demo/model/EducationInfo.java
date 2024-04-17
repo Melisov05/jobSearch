@@ -8,8 +8,8 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class EducationInfo {
-    private int id;
-    private int resumeId;
+    private Long id;
+    private Long resumeId;
     private String institution;
     private String program;
     private LocalDate startDate;

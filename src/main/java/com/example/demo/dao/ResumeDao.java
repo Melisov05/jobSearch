@@ -5,9 +5,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -67,20 +73,31 @@ public class ResumeDao {
     }
 
 
-    public void addResume(Resume resume){
+    public Long addResume(Resume resume){
         String sql = """
                 insert into RESUMES(name, applicant_id, category_id, salary, is_active, created_date, updated_date)
                  values (?, ?, ?, ?, ?, ?, ?)
                 """;
-        jdbcTemplate.update(sql, resume.getName(), resume.getApplicantId(), resume.getCategoryId(),
-                resume.getSalary(), resume.isActive(), resume.getCreatedDate(), resume.getUpdatedDate());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql,new String[]{"id"});
+            ps.setString(1,resume.getName());
+            ps.setLong(2,resume.getCategoryId());
+            ps.setLong(3,resume.getApplicantId());
+            ps.setDouble(4,resume.getSalary());
+            ps.setBoolean(5,true);
+            ps.setDate(6, Date.valueOf(LocalDate.now()));
+            ps.setDate(7, Date.valueOf(LocalDate.now()));
+            return ps;
+        }, keyHolder);
+        return Objects.requireNonNull(keyHolder.getKey()).longValue();
     }
 
     public void updateResume(Resume resume){
         String sql = "update resumes set name = ?, applicant_id = ?, category_id = ?, salary = ?, " +
                 "is_active = ?, updated_date = ? where id = ?";
         jdbcTemplate.update(sql, resume.getName(), resume.getApplicantId(), resume.getCategoryId(),
-                resume.getSalary(), resume.isActive(), resume.getUpdatedDate(), resume.getId());
+                resume.getSalary(), resume.getIsActive(), resume.getUpdatedDate(), resume.getId());
     }
 
     public void deleteResume(long resumeId){
