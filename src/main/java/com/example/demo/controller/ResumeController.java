@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ResumeDto;
+import com.example.demo.dto.resume.CreateResumeDto;
+import com.example.demo.dto.resume.ResumeDto;
 import com.example.demo.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ public class ResumeController {
     private final ResumeService resumeService;
 
     @PostMapping
-    public HttpStatus createResume(@RequestBody ResumeDto resumeDto){
+    public HttpStatus createResume(@RequestBody CreateResumeDto resumeDto){
         log.info("Received DTO: {}", resumeDto);
         resumeService.createResume(resumeDto);
         return HttpStatus.CREATED;

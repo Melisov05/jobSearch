@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.EducationInfoDto;
+import com.example.demo.dto.CreateEducationInfoDto;
 
 public interface EducationInfoService {
-    void createEducationInfo(EducationInfoDto education, Long id);
+    void createEducationInfo(CreateEducationInfoDto education, Long id);
 }

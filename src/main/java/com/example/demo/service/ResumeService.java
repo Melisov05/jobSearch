@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.ResumeDto;
-import org.springframework.stereotype.Service;
+import com.example.demo.dto.resume.CreateResumeDto;
+import com.example.demo.dto.resume.ResumeDto;
 
 public interface ResumeService {
-        void createResume(ResumeDto resumeDto);
+        void createResume(CreateResumeDto resumeDto);
 }
