@@ -7,10 +7,7 @@ import com.example.demo.exceptions.CategoryNotFoundException;
 import com.example.demo.model.Category;
 import com.example.demo.model.Resume;
 import com.example.demo.model.User;
-import com.example.demo.service.CategoryService;
-import com.example.demo.service.EducationInfoService;
-import com.example.demo.service.ResumeService;
-import com.example.demo.service.UserService;
+import com.example.demo.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +18,7 @@ public class ResumeServiceImpl implements ResumeService {
     private final CategoryService categoryService;
     private final UserService userService;
     private final EducationInfoService educationInfoService;
+    private final WorkExperienceInfoService workExperienceInfoService;
 
     @Override
     public void createResume(CreateResumeDto resumeDto) {
@@ -38,10 +36,6 @@ public class ResumeServiceImpl implements ResumeService {
                 .build();
         Long id = resumeDao.addResume(resume);
         resumeDto.getEducationInfo().forEach(e -> educationInfoService.createEducationInfo(e, id));
+        resumeDto.getWorkExpInfo().forEach(e -> workExperienceInfoService.createWorkExperienceInfo(e, id));
     }
-
-//    private Resume fromDto(ResumeDto dto){
-//        return Resume.builder()
-//                .applicantId(dt)
-//    }
 }

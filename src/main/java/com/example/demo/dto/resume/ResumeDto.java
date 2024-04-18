@@ -1,8 +1,8 @@
 package com.example.demo.dto.resume;
 
 import com.example.demo.dto.ContactsInfoDto;
-import com.example.demo.dto.EducationInfoDto;
-import com.example.demo.dto.WorkExperienceInfoDto;
+import com.example.demo.dto.educationInfo.EducationInfoDto;
+import com.example.demo.dto.workExperienceInfo.WorkExperienceInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

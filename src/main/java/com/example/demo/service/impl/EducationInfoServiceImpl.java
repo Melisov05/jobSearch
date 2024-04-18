@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.EducationInfoDao;
-import com.example.demo.dto.CreateEducationInfoDto;
+import com.example.demo.dto.educationInfo.CreateEducationInfoDto;
 import com.example.demo.model.EducationInfo;
 import com.example.demo.service.EducationInfoService;
 import lombok.RequiredArgsConstructor;

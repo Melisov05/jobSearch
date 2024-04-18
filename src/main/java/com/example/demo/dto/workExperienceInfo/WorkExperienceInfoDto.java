@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.dto.workExperienceInfo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WorkExperienceInfoDto {
-    private int id;
-    private int resumeId;
-    private int years;
+    private Long id;
+    private Long resumeId;
+    private Integer years;
     private String companyName;
     private String position;
     private String responsibilities;
