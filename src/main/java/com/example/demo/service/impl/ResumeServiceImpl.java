@@ -37,5 +37,6 @@ public class ResumeServiceImpl implements ResumeService {
         Long id = resumeDao.addResume(resume);
         resumeDto.getEducationInfo().forEach(e -> educationInfoService.createEducationInfo(e, id));
         resumeDto.getWorkExpInfo().forEach(e -> workExperienceInfoService.createWorkExperienceInfo(e, id));
+
     }
 }
