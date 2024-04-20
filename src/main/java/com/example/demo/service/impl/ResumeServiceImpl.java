@@ -2,7 +2,6 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dao.ResumeDao;
 import com.example.demo.dto.resume.CreateResumeDto;
-import com.example.demo.dto.resume.ResumeDto;
 import com.example.demo.exceptions.CategoryNotFoundException;
 import com.example.demo.model.Category;
 import com.example.demo.model.Resume;

@@ -6,8 +6,8 @@ import lombok.Data;
 @Builder
 @Data
 public class ContactInfo {
-    private int id;
-    private int typeId;
-    private int resumeId;
+    private Long id;
+    private Long typeId;
+    private Long resumeId;
     private String value;
 }
