@@ -18,6 +18,7 @@ public class ResumeServiceImpl implements ResumeService {
     private final UserService userService;
     private final EducationInfoService educationInfoService;
     private final WorkExperienceInfoService workExperienceInfoService;
+    private final ContactInfoService contactInfoService;
 
     @Override
     public void createResume(CreateResumeDto resumeDto) {
@@ -36,6 +37,6 @@ public class ResumeServiceImpl implements ResumeService {
         Long id = resumeDao.addResume(resume);
         resumeDto.getEducationInfo().forEach(e -> educationInfoService.createEducationInfo(e, id));
         resumeDto.getWorkExpInfo().forEach(e -> workExperienceInfoService.createWorkExperienceInfo(e, id));
-
+        resumeDto.getContacts().forEach(e -> contactInfoService.createContactInfo(e, id));
     }
 }

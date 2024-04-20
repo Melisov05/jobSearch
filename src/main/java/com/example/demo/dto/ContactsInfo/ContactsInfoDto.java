@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.dto.ContactsInfo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContactsInfoDto {
-    private int id;
-    private int typeId;
-    private int resumeId;
+    private Long id;
+    private String typeName;
+    private Long resumeId;
     private String value;
 }

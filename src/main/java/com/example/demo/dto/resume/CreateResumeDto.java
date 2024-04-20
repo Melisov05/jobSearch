@@ -1,9 +1,9 @@
 package com.example.demo.dto.resume;
 
-import com.example.demo.dto.ContactsInfoDto;
+import com.example.demo.dto.ContactsInfo.ContactsInfoDto;
+import com.example.demo.dto.ContactsInfo.CreateContactsInfoDto;
 import com.example.demo.dto.educationInfo.CreateEducationInfoDto;
 import com.example.demo.dto.workExperienceInfo.CreateWorkExperienceInfoDto;
-import com.example.demo.dto.workExperienceInfo.WorkExperienceInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,5 +23,5 @@ public class CreateResumeDto {
     private Boolean isActive;
     private List<CreateWorkExperienceInfoDto> workExpInfo;
     private List<CreateEducationInfoDto> educationInfo;
-    private List<ContactsInfoDto> contacts;
+    private List<CreateContactsInfoDto> contacts;
 }

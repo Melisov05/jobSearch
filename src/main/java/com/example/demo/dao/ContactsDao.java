@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.model.ContactInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -9,5 +10,13 @@ import org.springframework.stereotype.Component;
 public class ContactsDao {
     private final JdbcTemplate template;
 
-
+    public void addContact(ContactInfo contactInfo) {
+        String sql = "INSERT INTO CONTACT_INFO (type_id, resume_id, CONTENT) VALUES (?, ?, ?)";
+        template.update(
+                sql,
+                contactInfo.getTypeId(),
+                contactInfo.getResumeId(),
+                contactInfo.getContent()
+        );
+    }
 }
