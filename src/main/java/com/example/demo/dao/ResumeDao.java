@@ -94,10 +94,10 @@ public class ResumeDao {
     }
 
     public void updateResume(Resume resume){
-        String sql = "update resumes set name = ?, applicant_id = ?, category_id = ?, salary = ?, " +
+        String sql = "update resumes set name = ?, category_id = ?, salary = ?, " +
                 "is_active = ?, updated_date = ? where id = ?";
-        jdbcTemplate.update(sql, resume.getName(), resume.getApplicantId(), resume.getCategoryId(),
-                resume.getSalary(), resume.getIsActive(), resume.getUpdatedDate(), resume.getId());
+        jdbcTemplate.update(sql, resume.getName(), resume.getCategoryId(),
+                resume.getSalary(), resume.getIsActive(), LocalDate.now(), resume.getId());
     }
 
     public void deleteResume(long resumeId){

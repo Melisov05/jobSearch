@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.resume.CreateResumeDto;
-import com.example.demo.dto.resume.ResumeDto;
 import com.example.demo.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

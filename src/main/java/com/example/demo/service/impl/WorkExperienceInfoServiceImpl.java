@@ -22,5 +22,16 @@ public class WorkExperienceInfoServiceImpl implements WorkExperienceInfoService 
                 .build();
         workExperienceDao.createWorkExperienceInfo(model);
     }
+    @Override
+    public void editWorkExperienceInfo(CreateWorkExperienceInfoDto dto, Long id){
+        WorkExperienceInfo model = WorkExperienceInfo.builder()
+                .responsibilities(dto.getResponsibilities())
+                .position(dto.getPosition())
+                .companyName(dto.getCompanyName())
+                .years(dto.getYears())
+                .resumeId(id)
+                .build();
+        workExperienceDao.updateWorkExperienceInfo(model);
+    }
 
 }

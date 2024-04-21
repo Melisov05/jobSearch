@@ -19,4 +19,16 @@ public class ContactsDao {
                 contactInfo.getContent()
         );
     }
+
+    public void updateContact(ContactInfo contactInfo) {
+        String sql = "UPDATE CONTACT_INFO SET type_id = ?, resume_id = ?, CONTENT = ? WHERE id = ?";
+        template.update(
+                sql,
+                contactInfo.getTypeId(),
+                contactInfo.getResumeId(),
+                contactInfo.getContent(),
+                contactInfo.getId()
+        );
+    }
+
 }

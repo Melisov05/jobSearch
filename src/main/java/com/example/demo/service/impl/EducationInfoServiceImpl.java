@@ -24,4 +24,17 @@ public class EducationInfoServiceImpl implements EducationInfoService {
                 .build();
         educationInfoDao.createEducationInfo(model);
     }
+
+    @Override
+    public void editEducationInfo(CreateEducationInfoDto education, Long id) {
+        EducationInfo model = EducationInfo.builder()
+                .resumeId(id)
+                .institution(education.getInstitution())
+                .degree(education.getDegree())
+                .program(education.getProgram())
+                .startDate(education.getStartDate())
+                .endDate(education.getEndDate())
+                .build();
+        educationInfoDao.updateEducationInfo(model);
+    }
 }

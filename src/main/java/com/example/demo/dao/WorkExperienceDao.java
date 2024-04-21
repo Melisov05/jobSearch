@@ -21,7 +21,7 @@ public class WorkExperienceDao {
 
     public void updateWorkExperienceInfo(WorkExperienceInfo workExperienceInfo) {
         String sql = "update WORK_EXPERIENCE_INFO set YEARS = ?, COMPANY_NAME = ?, POSITION = ?, " +
-                "RESPONSIBILITIES = ? where ID = ?";
+                "RESPONSIBILITIES = ? where RESUME_ID = ?";
         jdbcTemplate.update(sql, workExperienceInfo.getYears(), workExperienceInfo.getCompanyName(),
                 workExperienceInfo.getPosition(), workExperienceInfo.getResponsibilities(),
                 workExperienceInfo.getId());

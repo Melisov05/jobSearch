@@ -4,6 +4,7 @@ import com.example.demo.dao.ContactTypeDao;
 import com.example.demo.dao.ContactsDao;
 import com.example.demo.dto.ContactsInfo.ContactsInfoDto;
 import com.example.demo.dto.ContactsInfo.CreateContactsInfoDto;
+import com.example.demo.dto.ContactsInfo.EditContactsInfoDto;
 import com.example.demo.model.ContactInfo;
 import com.example.demo.service.ContactInfoService;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,23 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
         contactInfoDao.addContact(contactInfo);
     }
+
+    @Override
+    public void updateContact(EditContactsInfoDto contactsInfoDto, Long resumeId) {
+        Long typeId = contactTypeDao.findOrCreateType(contactsInfoDto.getTypeName());
+
+        ContactInfo contactInfo = ContactInfo.builder()
+                .id(contactsInfoDto.getId())
+                .typeId(typeId)
+                .resumeId(resumeId)
+                .content(contactsInfoDto.getValue())
+                .build();
+
+        if (contactsInfoDto.getId() == null) {
+            contactInfoDao.addContact(contactInfo);
+        } else {
+            contactInfoDao.updateContact(contactInfo);
+        }
+    }
+
 }
