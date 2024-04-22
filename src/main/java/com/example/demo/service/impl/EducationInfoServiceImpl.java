@@ -49,6 +49,8 @@ public class EducationInfoServiceImpl implements EducationInfoService {
     @Override
     public EducationInfoDto toDto(EducationInfo info) {
         return EducationInfoDto.builder()
+                .id(info.getId())
+                .resumeId(info.getResumeId())
                 .program(info.getProgram())
                 .institution(info.getInstitution())
                 .degree(info.getDegree())

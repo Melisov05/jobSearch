@@ -34,7 +34,7 @@ public class CategoryDao {
         );
     }
 
-    private Category getCategoryById(long categoryId){
+    public Category getCategoryById(long categoryId){
         String sql = """
                 select * from CATEGORIES where ID = ?
                 """;

@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/candidates")
+@RequestMapping("/api/resumes")
 public class ResumeController {
     private final ResumeService resumeService;
 

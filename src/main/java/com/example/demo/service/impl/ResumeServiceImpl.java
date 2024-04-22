@@ -108,7 +108,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     private ResumeDto toDto(Resume resume){
-        Category category = categoryService.getCategoryById(resume.getId());
+        Category category = categoryService.getCategoryById(resume.getCategoryId());
         String email = userService.getEmailByUserId(resume.getApplicantId());
         if(category == null){
             throw new CategoryNotFoundException("No category found");
@@ -121,6 +121,7 @@ public class ResumeServiceImpl implements ResumeService {
         List<ContactsInfoDto> contactsInfoDtoList = contactInfoService.getContactsByResumeId(resume.getId());
 
         return ResumeDto.builder()
+                .id(resume.getId())
                 .name(resume.getName())
                 .category(category.getName())
                 .userEmail(email)

@@ -47,8 +47,10 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
     @Override
     public ContactsInfoDto toDto(ContactInfo info) {
-        String type = contactTypeDao.findTypeById(info.getId());
+        String type = contactTypeDao.findTypeById(info.getTypeId());
         return ContactsInfoDto.builder()
+                .id(info.getId())
+                .resumeId(info.getResumeId())
                 .typeName(type)
                 .value(info.getContent())
                 .build();

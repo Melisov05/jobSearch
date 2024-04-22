@@ -48,6 +48,8 @@ public class WorkExperienceInfoServiceImpl implements WorkExperienceInfoService 
     @Override
     public WorkExperienceInfoDto toDto(WorkExperienceInfo workExperienceInfo) {
         return WorkExperienceInfoDto.builder()
+                .id(workExperienceInfo.getId())
+                .resumeId(workExperienceInfo.getResumeId())
                 .companyName(workExperienceInfo.getCompanyName())
                 .responsibilities(workExperienceInfo.getResponsibilities())
                 .years(workExperienceInfo.getYears())
