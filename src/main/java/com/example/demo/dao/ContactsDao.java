@@ -2,8 +2,11 @@ package com.example.demo.dao;
 
 import com.example.demo.model.ContactInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -30,5 +33,13 @@ public class ContactsDao {
                 contactInfo.getResumeId()
         );
     }
+
+    public List<ContactInfo> getContactsByResumeId(Long id){
+        String sql = """
+                select * from CONTACT_INFO where RESUME_ID = ?
+                """;
+        return template.query(sql, new BeanPropertyRowMapper<>(ContactInfo.class), id);
+    }
+
 
 }

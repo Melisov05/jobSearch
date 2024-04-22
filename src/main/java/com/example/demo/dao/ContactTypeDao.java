@@ -1,6 +1,8 @@
 package com.example.demo.dao;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -12,6 +14,7 @@ import java.sql.Statement;
 import java.util.Objects;
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class ContactTypeDao {
     private final JdbcTemplate jdbcTemplate;
@@ -32,5 +35,15 @@ public class ContactTypeDao {
             typeId = Objects.requireNonNull(keyHolder.getKey()).longValue();
         }
         return typeId;
+    }
+
+    public String findTypeById(Long typeId) {
+        try {
+            String sql = "SELECT type FROM contact_types WHERE id = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{typeId}, String.class);
+        } catch (DataAccessException e) {
+            log.error(String.valueOf(e));
+            return null;
+        }
     }
 }

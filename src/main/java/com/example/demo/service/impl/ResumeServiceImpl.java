@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.ResumeDao;
+import com.example.demo.dto.ContactsInfo.ContactsInfoDto;
 import com.example.demo.dto.educationInfo.EducationInfoDto;
 import com.example.demo.dto.resume.CreateResumeDto;
 import com.example.demo.dto.resume.EditResumeDto;
@@ -67,11 +68,15 @@ public class ResumeServiceImpl implements ResumeService {
         existingResume.setCategoryId(category.getId());
         existingResume.setSalary(resumeDto.getSalary());
         existingResume.setIsActive(resumeDto.getIsActive());
+
         resumeDao.updateResume(existingResume);
+
         resumeDto.getEducationInfo().forEach(e -> educationInfoService
                 .editEducationInfo(e, existingResume.getId()));
         resumeDto.getWorkExpInfo().forEach(e -> workExperienceInfoService
                 .editWorkExperienceInfo(e, existingResume.getId()));
+        resumeDto.getContacts().forEach(e -> contactInfoService
+                .updateContact(e, existingResume.getId()));
     }
 
     @Override
@@ -108,10 +113,13 @@ public class ResumeServiceImpl implements ResumeService {
         if(category == null){
             throw new CategoryNotFoundException("No category found");
         }
+
         List<WorkExperienceInfoDto> workExperienceInfoDtos = workExperienceInfoService
                 .getWorkExperiencesByResumeId(resume.getId());
         List<EducationInfoDto> educationInfoDtoList = educationInfoService
                 .getEducationInfoByResumeId(resume.getId());
+        List<ContactsInfoDto> contactsInfoDtoList = contactInfoService.getContactsByResumeId(resume.getId());
+
         return ResumeDto.builder()
                 .name(resume.getName())
                 .category(category.getName())
@@ -122,6 +130,7 @@ public class ResumeServiceImpl implements ResumeService {
                 .updateDate(resume.getUpdatedDate())
                 .workExpInfo(workExperienceInfoDtos)
                 .educationInfo(educationInfoDtoList)
+                .contacts(contactsInfoDtoList)
                 .build();
 
     }
