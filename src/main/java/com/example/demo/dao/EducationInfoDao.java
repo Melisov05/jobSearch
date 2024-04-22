@@ -20,7 +20,7 @@ public class EducationInfoDao {
 
     public void updateEducationInfo(EducationInfo educationInfo) {
         String sql = "update EDUCATION_INFO set INSTITUTION = ?, PROGRAM = ?, START_DATE = ?, " +
-                "END_DATE = ?, DEGREE = ? WHERE RESUME_ID = ?";
+                "END_DATE = ?, DEGREE = ? WHERE ID = ?";
         jdbcTemplate.update(sql, educationInfo.getInstitution(), educationInfo.getProgram(),
                 educationInfo.getStartDate(), educationInfo.getEndDate(),
                 educationInfo.getDegree(), educationInfo.getId());

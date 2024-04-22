@@ -2,7 +2,6 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dao.ContactTypeDao;
 import com.example.demo.dao.ContactsDao;
-import com.example.demo.dto.ContactsInfo.ContactsInfoDto;
 import com.example.demo.dto.ContactsInfo.CreateContactsInfoDto;
 import com.example.demo.dto.ContactsInfo.EditContactsInfoDto;
 import com.example.demo.model.ContactInfo;
@@ -34,17 +33,11 @@ public class ContactInfoServiceImpl implements ContactInfoService {
         Long typeId = contactTypeDao.findOrCreateType(contactsInfoDto.getTypeName());
 
         ContactInfo contactInfo = ContactInfo.builder()
-                .id(contactsInfoDto.getId())
                 .typeId(typeId)
                 .resumeId(resumeId)
                 .content(contactsInfoDto.getValue())
                 .build();
-
-        if (contactsInfoDto.getId() == null) {
-            contactInfoDao.addContact(contactInfo);
-        } else {
-            contactInfoDao.updateContact(contactInfo);
-        }
+        contactInfoDao.updateContact(contactInfo);
     }
 
 }

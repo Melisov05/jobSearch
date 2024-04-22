@@ -59,10 +59,14 @@ public class VacancyController {
         }
     }
 
-    @GetMapping("{name}")
+    @GetMapping("/names/{name}")
     public ResponseEntity<List<VacancyDto>> getVacanciesByName(@PathVariable String name){
         return ResponseEntity.ok(vacancyService.getVacanciesByName(name));
     }
 
+    @GetMapping("categories/{category}")
+    public ResponseEntity<List<VacancyDto>> getVacanciesByCategory(@PathVariable String category){
+        return ResponseEntity.ok(vacancyService.getVacanciesByCategory(category));
+    }
 
 }

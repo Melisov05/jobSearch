@@ -12,7 +12,7 @@ public interface UserService {
     User findUserByPhoneNumber(String phoneNumber);
     User findUserByEmail(String email);
     Optional<User> findUserById(Long id);
-    boolean isUserExists(String email);
-
+    Boolean isUserExists(String email);
+    String getEmailByUserId(Long id);
     List<UserDto> getCandidates();
 }

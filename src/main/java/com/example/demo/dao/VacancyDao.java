@@ -40,9 +40,9 @@ public class VacancyDao {
 
     public List<Vacancy> findVacancyByCategory(String categoryName){
         String sql = """
-                select * from VACANCIES where CATEGORY_ID = (select id from CATEGORIES where CATEGORIES.NAME = ?)
+                select * from VACANCIES where CATEGORY_ID in (select id from CATEGORIES where CATEGORIES.NAME ilike ?)
                 """;
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Vacancy.class), categoryName);
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Vacancy.class), "%" + categoryName + "%");
     }
 
     public List<Vacancy> getAllVacanciesByName(String name){

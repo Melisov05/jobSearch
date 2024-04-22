@@ -2,6 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dao.UserDao;
 import com.example.demo.dto.UserDto;
+import com.example.demo.exceptions.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import lombok.AllArgsConstructor;
@@ -37,8 +38,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isUserExists(String email) {
+    public Boolean isUserExists(String email) {
         return userDao.checkUserExistsByEmail(email);
+    }
+
+    @Override
+    public String getEmailByUserId(Long id) {
+        User user = userDao.findUserById(id).orElseThrow(() -> new UserNotFoundException("User with" +
+                " id:" + id + " is not found"));
+        String email = user.getEmail();
+        return email;
     }
 
     @Override

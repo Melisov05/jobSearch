@@ -1,18 +1,25 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.ResumeDao;
+import com.example.demo.dto.VacancyDto;
 import com.example.demo.dto.resume.CreateResumeDto;
 import com.example.demo.dto.resume.EditResumeDto;
+import com.example.demo.dto.resume.ResumeDto;
+import com.example.demo.dto.workExperienceInfo.WorkExperienceInfoDto;
 import com.example.demo.exceptions.CategoryNotFoundException;
 import com.example.demo.exceptions.ResumeNotFoundException;
 import com.example.demo.model.Category;
 import com.example.demo.model.Resume;
 import com.example.demo.model.User;
+import com.example.demo.model.Vacancy;
 import com.example.demo.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +33,6 @@ public class ResumeServiceImpl implements ResumeService {
     private final ContactInfoService contactInfoService;
 
     @Override
-    @Transactional
     public void createResume(CreateResumeDto resumeDto) {
         Category category = categoryService.getCategoryByName(resumeDto.getCategoryName());
         User user = userService.findUserByEmail(resumeDto.getUserEmail());
@@ -47,7 +53,6 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    @Transactional
     public void editResume(EditResumeDto resumeDto){
         Category category = categoryService.getCategoryByName(resumeDto.getCategoryName());
         User user = userService.findUserByEmail(resumeDto.getUserEmail());
@@ -65,5 +70,52 @@ public class ResumeServiceImpl implements ResumeService {
         resumeDao.updateResume(existingResume);
         resumeDto.getEducationInfo().forEach(e -> educationInfoService.editEducationInfo(e, existingResume.getId()));
         resumeDto.getWorkExpInfo().forEach(e -> workExperienceInfoService.editWorkExperienceInfo(e, existingResume.getId()));
+    }
+
+    @Override
+    public Boolean deleteResume(Long id) {
+        if(resumeDao.getResumeById(id).isPresent()){
+            resumeDao.deleteResume(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public List<ResumeDto> getResumes() {
+        List<Resume> resumes = resumeDao.getAllResumes();
+        return getListResume(resumes);
+    }
+
+    private List<ResumeDto> getListResume(List<Resume> resumes){
+        List<ResumeDto> resumeDtos = new ArrayList<>();
+
+        for(Resume resume : resumes){
+            ResumeDto resumeDto = toDto(resume);
+            resumeDtos.add(resumeDto);
+
+
+        }
+        return resumeDtos;
+    }
+
+    private ResumeDto toDto(Resume resume){
+        Category category = categoryService.getCategoryById(resume.getId());
+        String email = userService.getEmailByUserId(resume.getApplicantId());
+        if(category == null){
+            throw new CategoryNotFoundException("No category found");
+        }
+        List<WorkExperienceInfoDto> workExperienceInfoDtos = workExperienceInfoService.getWorkExperiencesByResumeId(resume.getId());
+        return ResumeDto.builder()
+                .name(resume.getName())
+                .category(category.getName())
+                .userEmail(email)
+                .salary(resume.getSalary())
+                .isActive(resume.getIsActive())
+                .createdDate(resume.getCreatedDate())
+                .updateDate(resume.getUpdatedDate())
+                .build();
+
     }
 }

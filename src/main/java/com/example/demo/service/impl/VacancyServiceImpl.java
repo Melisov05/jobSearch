@@ -2,6 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dao.VacancyDao;
 import com.example.demo.dto.VacancyDto;
+import com.example.demo.exceptions.NoSuchVacancyFoundException;
 import com.example.demo.model.User;
 import com.example.demo.model.Vacancy;
 import com.example.demo.service.UserService;
@@ -62,6 +63,18 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<VacancyDto> getVacanciesByName(String name) {
         List<Vacancy> list = vacancyDao.getAllVacanciesByName(name);
+        if(list.isEmpty()){
+            throw new NoSuchVacancyFoundException("Vacancy not found or you entered wrong name");
+        }
+        return getListVacancy(list);
+    }
+
+    @Override
+    public List<VacancyDto> getVacanciesByCategory(String category) {
+        List<Vacancy> list = vacancyDao.findVacancyByCategory(category);
+        if(list.isEmpty()){
+            throw new NoSuchVacancyFoundException("Vacancy not found or you entered wrong category");
+        }
         return getListVacancy(list);
     }
 

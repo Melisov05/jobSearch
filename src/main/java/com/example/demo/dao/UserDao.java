@@ -71,4 +71,5 @@ public class UserDao {
                 """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
     }
+
 }

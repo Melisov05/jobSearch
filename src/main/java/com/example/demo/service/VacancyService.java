@@ -13,5 +13,7 @@ public interface VacancyService {
     List<VacancyDto> getVacancies() throws Exception;
 
     List<VacancyDto> getVacanciesByName(String name);
+
+    List<VacancyDto> getVacanciesByCategory(String category);
 }
 

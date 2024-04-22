@@ -21,13 +21,13 @@ public class ContactsDao {
     }
 
     public void updateContact(ContactInfo contactInfo) {
-        String sql = "UPDATE CONTACT_INFO SET type_id = ?, resume_id = ?, CONTENT = ? WHERE id = ?";
+        String sql = "UPDATE CONTACT_INFO SET type_id = ?, resume_id = ?, CONTENT = ? WHERE RESUME_ID = ?";
         template.update(
                 sql,
                 contactInfo.getTypeId(),
                 contactInfo.getResumeId(),
                 contactInfo.getContent(),
-                contactInfo.getId()
+                contactInfo.getResumeId()
         );
     }
 

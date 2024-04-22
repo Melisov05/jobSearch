@@ -2,6 +2,8 @@ package com.example.demo.dao;
 
 import com.example.demo.model.Resume;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,6 +20,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Component
+@Slf4j
 public class ResumeDao {
     private final JdbcTemplate jdbcTemplate;
 
@@ -96,8 +99,13 @@ public class ResumeDao {
     public void updateResume(Resume resume){
         String sql = "update resumes set name = ?, category_id = ?, salary = ?, " +
                 "is_active = ?, updated_date = ? where id = ?";
-        jdbcTemplate.update(sql, resume.getName(), resume.getCategoryId(),
-                resume.getSalary(), resume.getIsActive(), LocalDate.now(), resume.getId());
+        try{
+            jdbcTemplate.update(sql, resume.getName(), resume.getCategoryId(),
+                    resume.getSalary(), resume.getIsActive(), LocalDate.now(), resume.getId());
+        } catch (DataAccessException e){
+            log.error("Error updating resume " + e);
+            throw e;
+        }
     }
 
     public void deleteResume(long resumeId){

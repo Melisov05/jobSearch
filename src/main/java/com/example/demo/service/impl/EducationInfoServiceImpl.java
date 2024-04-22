@@ -2,6 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dao.EducationInfoDao;
 import com.example.demo.dto.educationInfo.CreateEducationInfoDto;
+import com.example.demo.dto.educationInfo.EditEducationInfoDto;
 import com.example.demo.model.EducationInfo;
 import com.example.demo.service.EducationInfoService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,9 @@ public class EducationInfoServiceImpl implements EducationInfoService {
     }
 
     @Override
-    public void editEducationInfo(CreateEducationInfoDto education, Long id) {
+    public void editEducationInfo(EditEducationInfoDto education, Long id) {
         EducationInfo model = EducationInfo.builder()
+                .id(education.getId())
                 .resumeId(id)
                 .institution(education.getInstitution())
                 .degree(education.getDegree())

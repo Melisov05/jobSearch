@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EditContactsInfoDto {
-    private Long id;
     private String typeName;
     private String value;
 }
