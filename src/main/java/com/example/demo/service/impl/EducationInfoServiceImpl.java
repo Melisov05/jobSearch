@@ -3,10 +3,15 @@ package com.example.demo.service.impl;
 import com.example.demo.dao.EducationInfoDao;
 import com.example.demo.dto.educationInfo.CreateEducationInfoDto;
 import com.example.demo.dto.educationInfo.EditEducationInfoDto;
+import com.example.demo.dto.educationInfo.EducationInfoDto;
+import com.example.demo.dto.workExperienceInfo.WorkExperienceInfoDto;
 import com.example.demo.model.EducationInfo;
 import com.example.demo.service.EducationInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -38,5 +43,23 @@ public class EducationInfoServiceImpl implements EducationInfoService {
                 .endDate(education.getEndDate())
                 .build();
         educationInfoDao.updateEducationInfo(model);
+    }
+
+
+    @Override
+    public EducationInfoDto toDto(EducationInfo info) {
+        return EducationInfoDto.builder()
+                .program(info.getProgram())
+                .institution(info.getInstitution())
+                .degree(info.getDegree())
+                .startDate(info.getStartDate())
+                .endDate(info.getEndDate())
+                .build();
+    }
+
+    @Override
+    public List<EducationInfoDto> getEducationInfoByResumeId(Long resumeId) {
+        List<EducationInfo> educationInfoList = educationInfoDao.getEducationInfoByResumeId(resumeId);
+        return educationInfoList.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

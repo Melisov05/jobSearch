@@ -2,8 +2,11 @@ package com.example.demo.dao;
 
 import com.example.demo.model.EducationInfo;
 import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -24,5 +27,12 @@ public class EducationInfoDao {
         jdbcTemplate.update(sql, educationInfo.getInstitution(), educationInfo.getProgram(),
                 educationInfo.getStartDate(), educationInfo.getEndDate(),
                 educationInfo.getDegree(), educationInfo.getId());
+    }
+
+    public List<EducationInfo> getEducationInfoByResumeId(Long id){
+        String sql = """
+                select * from EDUCATION_INFO where RESUME_ID = ?
+                """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(EducationInfo.class), id);
     }
 }

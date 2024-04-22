@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.ResumeDao;
-import com.example.demo.dto.VacancyDto;
+import com.example.demo.dto.educationInfo.EducationInfoDto;
 import com.example.demo.dto.resume.CreateResumeDto;
 import com.example.demo.dto.resume.EditResumeDto;
 import com.example.demo.dto.resume.ResumeDto;
@@ -11,7 +11,7 @@ import com.example.demo.exceptions.ResumeNotFoundException;
 import com.example.demo.model.Category;
 import com.example.demo.model.Resume;
 import com.example.demo.model.User;
-import com.example.demo.model.Vacancy;
+
 import com.example.demo.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -61,15 +60,18 @@ public class ResumeServiceImpl implements ResumeService {
         }
 
         Resume existingResume = resumeDao.getResumeByUserId(user.getId())
-                .orElseThrow(() -> new ResumeNotFoundException("Resume not found for user with email: " + user.getEmail()));
+                .orElseThrow(() -> new ResumeNotFoundException("Resume not found for user" +
+                        " with email: " + user.getEmail()));
 
         existingResume.setName(resumeDto.getName());
         existingResume.setCategoryId(category.getId());
         existingResume.setSalary(resumeDto.getSalary());
         existingResume.setIsActive(resumeDto.getIsActive());
         resumeDao.updateResume(existingResume);
-        resumeDto.getEducationInfo().forEach(e -> educationInfoService.editEducationInfo(e, existingResume.getId()));
-        resumeDto.getWorkExpInfo().forEach(e -> workExperienceInfoService.editWorkExperienceInfo(e, existingResume.getId()));
+        resumeDto.getEducationInfo().forEach(e -> educationInfoService
+                .editEducationInfo(e, existingResume.getId()));
+        resumeDto.getWorkExpInfo().forEach(e -> workExperienceInfoService
+                .editWorkExperienceInfo(e, existingResume.getId()));
     }
 
     @Override
@@ -106,7 +108,10 @@ public class ResumeServiceImpl implements ResumeService {
         if(category == null){
             throw new CategoryNotFoundException("No category found");
         }
-        List<WorkExperienceInfoDto> workExperienceInfoDtos = workExperienceInfoService.getWorkExperiencesByResumeId(resume.getId());
+        List<WorkExperienceInfoDto> workExperienceInfoDtos = workExperienceInfoService
+                .getWorkExperiencesByResumeId(resume.getId());
+        List<EducationInfoDto> educationInfoDtoList = educationInfoService
+                .getEducationInfoByResumeId(resume.getId());
         return ResumeDto.builder()
                 .name(resume.getName())
                 .category(category.getName())
@@ -115,6 +120,8 @@ public class ResumeServiceImpl implements ResumeService {
                 .isActive(resume.getIsActive())
                 .createdDate(resume.getCreatedDate())
                 .updateDate(resume.getUpdatedDate())
+                .workExpInfo(workExperienceInfoDtos)
+                .educationInfo(educationInfoDtoList)
                 .build();
 
     }
