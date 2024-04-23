@@ -13,4 +13,6 @@ public interface ResumeService {
         Boolean deleteResume(Long id);
 
         List<ResumeDto> getResumes();
+
+        List<ResumeDto> getResumesByPosition(String position);
 }

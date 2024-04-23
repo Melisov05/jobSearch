@@ -137,4 +137,13 @@ public class ResumeDao {
     }
 
 
+    public List<Resume> getResumesByPosition(String position) {
+        String sql = """
+                select distinct r.*
+                from resumes r
+                join work_experience_info w ON r.id = w.resume_id
+                where LOWER(w.position) ILIKE LOWER(?)
+                """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class), "%" + position + "%");
+    }
 }

@@ -95,6 +95,12 @@ public class ResumeServiceImpl implements ResumeService {
         return getListResume(resumes);
     }
 
+    @Override
+    public List<ResumeDto> getResumesByPosition(String position) {
+        List<Resume> resumes = resumeDao.getResumesByPosition(position);
+        return getListResume(resumes);
+    }
+
     private List<ResumeDto> getListResume(List<Resume> resumes){
         List<ResumeDto> resumeDtos = new ArrayList<>();
 

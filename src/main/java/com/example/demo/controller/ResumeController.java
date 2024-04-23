@@ -47,4 +47,8 @@ public class ResumeController {
         return ResponseEntity.ok(resumeService.getResumes());
     }
 
+    @GetMapping("/position/{position}")
+    public ResponseEntity<List<ResumeDto>> getResumesByPosition(@PathVariable String position){
+        return ResponseEntity.ok(resumeService.getResumesByPosition(position));
+    }
 }
