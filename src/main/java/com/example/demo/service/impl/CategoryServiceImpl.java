@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.CategoryDao;
-import com.example.demo.exceptions.CategoryNotFoundException;
+import com.example.demo.exception.CategoryNotFoundException;
 import com.example.demo.model.Category;
 import com.example.demo.service.CategoryService;
 import lombok.RequiredArgsConstructor;

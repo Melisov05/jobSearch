@@ -21,4 +21,5 @@ public interface UserService {
     List<UserDto> getEmployersByName(String name);
 
     List<UserDto> getCandidatesByName(String name);
+    void createUser(UserDto userDto);
 }

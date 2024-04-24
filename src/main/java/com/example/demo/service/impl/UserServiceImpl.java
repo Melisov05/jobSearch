@@ -2,10 +2,11 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dao.UserDao;
 import com.example.demo.dto.UserDto;
-import com.example.demo.exceptions.UserNotFoundException;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User findUserByName(String name) {
@@ -94,6 +97,16 @@ public class UserServiceImpl implements UserService {
         return candidatesByName;
     }
 
+    @Override
+    public void createUser(UserDto userDto){
+        User check = findUserByEmail(userDto.getEmail());
+        if(check != null){
+            throw new IllegalStateException("User already exists with email: " + userDto.getEmail());
+        }
+        User user = fromDto(userDto);
+        userDao.createUser(user);
+    }
+
     private UserDto toDto(User user){
         return UserDto.builder()
                 .id(user.getId())
@@ -105,6 +118,20 @@ public class UserServiceImpl implements UserService {
                 .phoneNumber(user.getPhoneNumber())
                 .avatar(user.getAvatar())
                 .accountType(user.getAccountType())
+                .build();
+    }
+
+    private User fromDto(UserDto userDto){
+        return  User.builder()
+                .name(userDto.getName())
+                .surname(userDto.getSurname())
+                .email(userDto.getEmail())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .phoneNumber(userDto.getPhoneNumber())
+                .avatar(null)
+                .accountType(userDto.getAccountType())
+                .age(userDto.getAge())
+                .email(userDto.getPhoneNumber())
                 .build();
     }
 

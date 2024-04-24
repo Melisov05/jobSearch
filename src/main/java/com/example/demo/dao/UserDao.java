@@ -92,4 +92,19 @@ public class UserDao {
                 """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), "%" + name + "%");
     }
+
+    public void createUser(User user) {
+        String sql = """
+            INSERT INTO users (name, surname, age, email, password, phone_number, avatar, account_type)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """;
+        jdbcTemplate.update(sql,
+                user.getName(),
+                user.getSurname(),
+                user.getAge(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getPhoneNumber(),
+                user.getAvatar(),
+                user.getAccountType());
 }
