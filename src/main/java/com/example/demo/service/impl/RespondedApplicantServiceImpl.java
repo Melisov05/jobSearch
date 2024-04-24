@@ -27,6 +27,12 @@ public class RespondedApplicantServiceImpl implements RespondedApplicantService 
         return applicantDtos;
     }
 
+    @Override
+    public void applyToVacancy(RespondedApplicantDto dto) {
+        RespondedApplicant respondedApplicant = fromDto(dto);
+        respondedApplicantDao.applyToVacancy(respondedApplicant);
+    }
+
     private RespondedApplicantDto toDto(RespondedApplicant applicant){
         return RespondedApplicantDto.builder()
                 .id(applicant.getId())
@@ -34,5 +40,13 @@ public class RespondedApplicantServiceImpl implements RespondedApplicantService 
                 .vacancyId(applicant.getVacancyId())
                 .confirmation(applicant.getConfirmation()).build();
 
+    }
+
+    private RespondedApplicant fromDto(RespondedApplicantDto dto){
+        return RespondedApplicant.builder()
+                .confirmation(dto.getConfirmation())
+                .vacancyId(dto.getVacancyId())
+                .resumeId(dto.getResumeId())
+                .build();
     }
 }

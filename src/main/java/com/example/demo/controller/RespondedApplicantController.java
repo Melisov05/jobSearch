@@ -5,10 +5,9 @@ import com.example.demo.model.RespondedApplicant;
 import com.example.demo.service.RespondedApplicantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +22,12 @@ public class RespondedApplicantController {
     private ResponseEntity<List<RespondedApplicantDto>> getRespondedApplicants(){
         return ResponseEntity.ok(respondedApplicantsService.getRespondedApplicants());
     }
+
+    @PostMapping
+    private HttpStatus applyToVacancy(@RequestBody RespondedApplicantDto dto){
+        respondedApplicantsService.applyToVacancy(dto);
+        return HttpStatus.OK;
+    }
+
 }
 

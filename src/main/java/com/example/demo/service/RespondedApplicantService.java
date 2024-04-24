@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RespondedApplicantService {
     List<RespondedApplicantDto> getRespondedApplicants();
+
+    void applyToVacancy(RespondedApplicantDto dto);
 }
