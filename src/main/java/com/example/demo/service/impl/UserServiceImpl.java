@@ -83,6 +83,17 @@ public class UserServiceImpl implements UserService {
         return employersByName;
     }
 
+    @Override
+    public List<UserDto> getCandidatesByName(String name) {
+        List<User> list = userDao.getCandidatesByName(name);
+        List<UserDto> candidatesByName = new ArrayList<>();
+        for (User user : list){
+            UserDto dto = toDto(user);
+            candidatesByName.add(dto);
+        }
+        return candidatesByName;
+    }
+
     private UserDto toDto(User user){
         return UserDto.builder()
                 .id(user.getId())

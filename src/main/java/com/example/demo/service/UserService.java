@@ -19,4 +19,6 @@ public interface UserService {
     List<UserDto> getEmployers();
 
     List<UserDto> getEmployersByName(String name);
+
+    List<UserDto> getCandidatesByName(String name);
 }
