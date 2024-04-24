@@ -78,4 +78,11 @@ public class UserDao {
                 """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
     }
+
+    public List<User> getEmployersByName(String name) {
+        String sql = """
+                select * from USERS where ACCOUNT_TYPE = 'employer'and NAME ilike ?
+                """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), "%" + name + "%");
+    }
 }
