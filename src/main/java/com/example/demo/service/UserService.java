@@ -15,4 +15,6 @@ public interface UserService {
     Boolean isUserExists(String email);
     String getEmailByUserId(Long id);
     List<UserDto> getCandidates();
+
+    List<UserDto> getEmployers();
 }
