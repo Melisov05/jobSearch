@@ -7,7 +7,6 @@ import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import util.FileUtil;
 
@@ -21,7 +20,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User findUserByName(String name) {
@@ -123,12 +122,11 @@ public class UserServiceImpl implements UserService {
                 .name(editUserDto.getName())
                 .surname(editUserDto.getSurname())
                 .email(editUserDto.getEmail())
-                .password(passwordEncoder.encode(editUserDto.getPassword()))
+                .password(editUserDto.getPassword())
                 .phoneNumber(editUserDto.getPhoneNumber())
                 .avatar(fileName)
                 .accountType(editUserDto.getAccountType())
                 .age(editUserDto.getAge())
-                .email(editUserDto.getPhoneNumber())
                 .build();
         userDao.updateProfile(user);
     }
@@ -152,7 +150,7 @@ public class UserServiceImpl implements UserService {
                 .name(userDto.getName())
                 .surname(userDto.getSurname())
                 .email(userDto.getEmail())
-                .password(passwordEncoder.encode(userDto.getPassword()))
+                .password(userDto.getPassword())
                 .phoneNumber(userDto.getPhoneNumber())
                 .avatar(null)
                 .accountType(userDto.getAccountType())

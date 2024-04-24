@@ -20,12 +20,14 @@ public class UserController {
     @PostMapping
     public HttpStatus createUser(UserDto userDto){
         userService.createUser(userDto);
+        log.info("Received DTO to create: {}", userDto);
         return HttpStatus.CREATED;
     }
 
     @PostMapping ("/edit")
     public HttpStatus editUser(EditUserDto editUserDto){
         userService.editUser(editUserDto);
+        log.info("Received DTO for edit: {}", editUserDto);
         return HttpStatus.OK;
     }
 }

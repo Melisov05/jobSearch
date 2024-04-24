@@ -17,12 +17,12 @@ public class UserDao {
 
     public User findUserByName(String name) {
         String sql = "select * from users where name = ?";
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), name);
     }
 
     public User findUserByPhone(String phone) {
         String sql = "select * from users where PHONE_NUMBER = ?";
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), phone);
     }
 
     public User findUserByEmail(String email){
