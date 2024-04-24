@@ -1,16 +1,19 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.UserDao;
-import com.example.demo.dto.UserDto;
+import com.example.demo.dto.user.EditUserDto;
+import com.example.demo.dto.user.UserDto;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import util.FileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -105,6 +108,29 @@ public class UserServiceImpl implements UserService {
         }
         User user = fromDto(userDto);
         userDao.createUser(user);
+    }
+
+    @Override
+    public void editUser(EditUserDto editUserDto){
+        String fileName = null;
+        if (!editUserDto.getAvatar().isEmpty()) {
+            if (Objects.requireNonNull(editUserDto.getAvatar().getContentType()).matches("png|jpeg|jpg")) {
+                throw new IllegalArgumentException("Unsupported img types (should be: \"png|jpeg|jpg\")");
+            }
+            fileName = FileUtil.saveUploadedFile(editUserDto.getAvatar(), "/images");
+        }
+        User user = User.builder()
+                .name(editUserDto.getName())
+                .surname(editUserDto.getSurname())
+                .email(editUserDto.getEmail())
+                .password(passwordEncoder.encode(editUserDto.getPassword()))
+                .phoneNumber(editUserDto.getPhoneNumber())
+                .avatar(fileName)
+                .accountType(editUserDto.getAccountType())
+                .age(editUserDto.getAge())
+                .email(editUserDto.getPhoneNumber())
+                .build();
+        userDao.updateProfile(user);
     }
 
     private UserDto toDto(User user){

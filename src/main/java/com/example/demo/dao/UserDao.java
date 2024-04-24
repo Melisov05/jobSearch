@@ -47,11 +47,11 @@ public class UserDao {
     public void updateProfile(User user) {
         String sql = "update users set name = ?," +
                 " surname = ?, password = ?, age = ?, phone_number = ?," +
-                " avatar = ?, account_type = ? WHERE id = ?";
+                " avatar = ?, account_type = ? WHERE EMAIL = ?";
         jdbcTemplate.update(sql, user.getName(), user.getSurname(),
                 user.getPassword(),
                 user.getAge(), user.getPhoneNumber(), user.getAvatar(),
-                user.getAccountType(), user.getId());
+                user.getAccountType(), user.getEmail());
     }
 
     public Optional<User> findUserById(Long id){
@@ -95,7 +95,8 @@ public class UserDao {
 
     public void createUser(User user) {
         String sql = """
-            INSERT INTO users (name, surname, age, email, password, phone_number, avatar, account_type)
+            
+                INSERT INTO users (name, surname, age, email, password, phone_number, avatar, account_type)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """;
         jdbcTemplate.update(sql,
@@ -107,4 +108,5 @@ public class UserDao {
                 user.getPhoneNumber(),
                 user.getAvatar(),
                 user.getAccountType());
+    }
 }

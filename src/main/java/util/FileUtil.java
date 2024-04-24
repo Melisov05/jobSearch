@@ -18,7 +18,7 @@ public class FileUtil {
     private static final String UPLOAD_DIR = "data";
 
     @SneakyThrows
-    public String saveUploadedFile(MultipartFile file, String subDir) {
+    public static String saveUploadedFile(MultipartFile file, String subDir) {
         String uuidFile = UUID.randomUUID().toString();
         String resultFileName = uuidFile + "_" + file.getOriginalFilename();
 

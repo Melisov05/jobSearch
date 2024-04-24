@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.UserDto;
+import com.example.demo.dto.user.EditUserDto;
+import com.example.demo.dto.user.UserDto;
 import com.example.demo.model.User;
 
 import java.util.List;
@@ -22,4 +23,5 @@ public interface UserService {
 
     List<UserDto> getCandidatesByName(String name);
     void createUser(UserDto userDto);
+    void editUser(EditUserDto editUserDto);
 }
