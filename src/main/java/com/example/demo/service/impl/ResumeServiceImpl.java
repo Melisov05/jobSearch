@@ -9,6 +9,7 @@ import com.example.demo.dto.resume.ResumeDto;
 import com.example.demo.dto.workExperienceInfo.WorkExperienceInfoDto;
 import com.example.demo.exception.CategoryNotFoundException;
 import com.example.demo.exception.ResumeNotFoundException;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.Category;
 import com.example.demo.model.Resume;
 import com.example.demo.model.User;
@@ -35,7 +36,8 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public void createResume(CreateResumeDto resumeDto) {
         Category category = categoryService.getCategoryByName(resumeDto.getCategoryName());
-        User user = userService.findUserByEmail(resumeDto.getUserEmail());
+        User user = userService.findUserByEmail(resumeDto.getUserEmail())
+                .orElseThrow(() -> new UserNotFoundException("User was not found"));
         if(category == null){
             throw new CategoryNotFoundException();
         }
@@ -55,7 +57,8 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public void editResume(EditResumeDto resumeDto){
         Category category = categoryService.getCategoryByName(resumeDto.getCategoryName());
-        User user = userService.findUserByEmail(resumeDto.getUserEmail());
+        User user = userService.findUserByEmail(resumeDto.getUserEmail())
+                .orElseThrow(() -> new UserNotFoundException("User was not found"));
         if(category == null){
             throw new CategoryNotFoundException();
         }
@@ -107,8 +110,6 @@ public class ResumeServiceImpl implements ResumeService {
         for(Resume resume : resumes){
             ResumeDto resumeDto = toDto(resume);
             resumeDtos.add(resumeDto);
-
-
         }
         return resumeDtos;
     }
@@ -139,6 +140,5 @@ public class ResumeServiceImpl implements ResumeService {
                 .educationInfo(educationInfoDtoList)
                 .contacts(contactsInfoDtoList)
                 .build();
-
     }
 }

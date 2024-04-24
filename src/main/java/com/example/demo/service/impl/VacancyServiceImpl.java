@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.dao.VacancyDao;
 import com.example.demo.dto.VacancyDto;
 import com.example.demo.exception.NoSuchVacancyFoundException;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.model.Vacancy;
 import com.example.demo.service.UserService;
@@ -93,7 +94,8 @@ public class VacancyServiceImpl implements VacancyService {
         int from = dto.getExpFrom();
         int to = dto.getExpTo();
 
-        User userByEmail = userService.findUserByEmail(dto.getAuthorEmail());
+        User userByEmail = userService.findUserByEmail(dto.getAuthorEmail())
+                .orElseThrow(() -> new UserNotFoundException("User was not found"));
         Long authorId = userByEmail.getId();
 
         if (to< from){

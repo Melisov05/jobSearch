@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByEmail(String email) {
+    public Optional<User> findUserByEmail(String email) {
         return userDao.findUserByEmail(email);
     }
 
@@ -101,8 +101,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(UserDto userDto){
-        User check = findUserByEmail(userDto.getEmail());
-        if(check != null){
+        Optional<User> check = findUserByEmail(userDto.getEmail());
+        if(check.isPresent()){
             throw new IllegalStateException("User already exists with email: " + userDto.getEmail());
         }
         User user = fromDto(userDto);

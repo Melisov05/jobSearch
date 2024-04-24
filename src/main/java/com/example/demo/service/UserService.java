@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserService {
     User findUserByName(String name);
     User findUserByPhoneNumber(String phoneNumber);
-    User findUserByEmail(String email);
+    Optional<User> findUserByEmail(String email);
     Optional<User> findUserById(Long id);
     Boolean isUserExists(String email);
     String getEmailByUserId(Long id);

@@ -25,9 +25,13 @@ public class UserDao {
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), phone);
     }
 
-    public User findUserByEmail(String email){
+    public Optional<User> findUserByEmail(String email){
         String sql = "select * from users where EMAIL = ?";
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class),email);
+        return Optional.ofNullable(
+                DataAccessUtils.singleResult(
+                        jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class),email)
+                )
+        );
     }
 
     public boolean checkUserExistsByEmail(String email) {
